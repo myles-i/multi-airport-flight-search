@@ -1,2 +1,2 @@
-[Click here to view site](https://htmlpreview.github.io/?https://github.com/myles-i/mutli-airport-flight-search/blob/master/index.html)
+[Click here to view site](https://raw.githack.com/myles-i/mutli-airport-flight-search/master/index.html)
 
