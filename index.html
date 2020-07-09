@@ -109,8 +109,7 @@
             function getAirports(tag)
             {
                 str = document.getElementById(tag).value
-                str = str.replace("/\s+/g", "");
-                return str.split(',')
+                return str.replace(/\s/g,'').split(',')
             }
 
             function OpenSearchTabs() 
