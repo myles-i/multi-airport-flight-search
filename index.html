@@ -62,7 +62,7 @@
                         <label class=" text-center font-weight-bold" for="destination_input">
                             Destination
                         </label>
-                        <input id="destination_input" type="text" placeholder="lgb, sjc">
+                        <input id="destination_input" type="text" placeholder="lgb, sna">
                     </form>
                 </div>
             </div>
@@ -109,7 +109,7 @@
             function getAirports(tag)
             {
                 str = document.getElementById(tag).value
-                return str.replace(/\s/g,'').split(',')
+                return str.replace(/\s/g,'').toUpperCase().split(',')
             }
 
             function OpenSearchTabs() 
