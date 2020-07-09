@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>FlyForMyles</title>
+
+    <!-- Expand the number of characters we can use in the document beyond basic ASCII 🎉 -->
+    <meta charset="utf-8">
+
+    <!-- Connect Font Awesome CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+
+    <!-- Connect Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <!-- Connect Bootstrap JavaScript and its dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Make it responsive to small screens -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Google web fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Passion+One:wght@700&display=swap" rel="stylesheet">
+
+    <!-- connect custom sylesheets -->
+    <link href="/assets/my_custom_styles.css" rel="stylesheet">
+
+
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h2>
+                    Where do you want to fly?
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-md-2 col-md-4 text-center">
+                <form>
+                    <label class="text-center" for="origin_input">
+                        Origin
+                    </label>
+                    <input id="origin_input" type="text" placeholder="sfo, oak, sjc">
+                </form>
+            </div>
+            <div class="col-md-4 text-center">
+                <form>
+                    <label for="destination_input">
+                        Destination
+                    </label>
+                    <input id="destination_input" type="text" placeholder="lgb, sjc">
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-md-5 col-md-2 text-center margin-top:auto">
+                <button onclick="OpenSearchTabs()">
+                    Search
+                </button>
+            </div>
+        </div>
+
+        <script>
+
+            function OpenSearchTabs() {
+
+                destinations = document.getElementById("destination_input").value
+                origins = document.getElementById("origin_input").value
+                window.open("https://www.google.com/flights#flt=" + origins + "." + destinations + ".2020-07-24;c:USD;e:1;sd:1;t:f;tt:o", "_blank");
+            }
+
+        </script>
+    </div>
+</body>
+</html> 
