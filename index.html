@@ -66,12 +66,35 @@
         </div>
 
         <script>
+            function getAirports(tag)
+            {
+                str = document.getElementById(tag).value
+                str = str.replace("/\s+/g", "");
+                return str.split(',')
+            }
 
-            function OpenSearchTabs() {
+            function OpenSearchTabs() 
+            {
 
-                destinations = document.getElementById("destination_input").value
-                origins = document.getElementById("origin_input").value
-                window.open("https://www.google.com/flights#flt=" + origins + "." + destinations + ".2020-07-24;c:USD;e:1;sd:1;t:f;tt:o", "_blank");
+                destinations = getAirports("destination_input") 
+                origins = getAirports("origin_input") 
+                for (dest_idx= 0; dest_idx < destinations.length; dest_idx++)
+                {
+                    destination = destinations[dest_idx]
+                    for (origin_idx= 0; origin_idx < origins.length; origin_idx++)
+                    {
+                        origin = origins[origin_idx]
+                        // Open southwest search tab for each combination of origin/destination
+                        url_str = "https://www.southwest.com/air/booking/select.html?adultPassengersCount=1&departureDate=2020-07-09"+
+                        "&departureTimeOfDay=ALL_DAY&destinationAirportCode=" + destination +
+                        "&fareType=USD&int=HOMEQBOMAIR&originationAirportCode=" + origin +
+                        "&passengerType=ADULT&reset=true&returnDate=2020-07-12&returnTimeOfDay=ALL_DAY&seniorPassengersCount=0&tripType=oneway"
+                        window.open(url_str, "_blank");
+                    }
+                }
+                // open a single google flights page with all combos
+                https://www.google.com/flights#flt=/m/0f04v,SFO.SNA.2020-07-24;c:USD;e:1;sd:1;t:f;tt:o
+                window.open("https://www.google.com/flights#flt=/m/0f04v," + origins.join(',') + "." + destinations.join(',') + ".2020-07-24;c:USD;e:1;sd:1;t:f;tt:o", "_blank");
             }
 
         </script>
