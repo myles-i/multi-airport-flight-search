@@ -149,7 +149,12 @@
     <!-- Javascript scripts -->
     <script>
         function getAirports(tag) {
-            str = document.getElementById(tag).value
+            elem = document.getElementById(tag)
+            str = elem.value
+            if (str.length == 0)
+            {
+                str = elem.getAttribute("placeholder")
+            }
             return str.replace(/\s/g, '').toUpperCase().split(',')
         }
 
