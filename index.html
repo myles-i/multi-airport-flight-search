@@ -57,7 +57,7 @@
             <div class="row mb-5">
                 <div class="col-md-12 text-center">
                     <h4>
-                        A multi-aiport search tool that includes Southwest results
+                        A simple, multi-aiport search tool that includes Southwest results
                     </h4>
                 </div>
             </div>
@@ -92,7 +92,7 @@
             </div>
             <div class="row mt-2 mb-5">
                 <div class="offset-md-5 col-md-2 text-center margin-top:auto">
-                    <button onclick="OpenSearchTabs()">
+                    <button id="search_button" onclick="OpenSearchTabs()">
                         Search
                     </button>
                 </div>
@@ -140,13 +140,12 @@
                 autoclose: true,
                 orientation: "top",
             }
-            var departure_date = $('input[name="departure_date_input"]'); //our date input has the name "date"
+            var departure_date = $('input[name="departure_date_input"]');
             departure_date.datepicker(options)
+            departure_date.datepicker('update', new Date());
         })
     </script>
 
-
-    <!-- Javascript scripts -->
     <script>
         function getAirports(tag) {
             elem = document.getElementById(tag)
