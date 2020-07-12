@@ -82,7 +82,7 @@
             <div id="dates_row" class="row mt-2 align-items-center h-100">
                 <div class="col-md-2 ">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" id="roundtrip_checkbox" type="checkbox" horizontal-align="middle" onclick="toggleRoundtrip(this)">
+                        <input class="form-check-input" id="roundtrip_checkbox" type="checkbox" horizontal-align="middle" onclick="updateRoundtripState(this)">
                             Roundtrip
                         </input>
                     </div class="form-check">
@@ -168,7 +168,7 @@
         attachDatePickerFunctionality("departure_date_input")
 
         return_date_element = document.getElementById("return_date_input_column");
-        function toggleRoundtrip(cb)
+        function updateRoundtripState(cb)
         {
             var dates_row_element = document.getElementById("dates_row");
             if (cb.checked)
@@ -183,8 +183,9 @@
             }
         }
 
-        var dates_row_element = document.getElementById("dates_row");
-        dates_row_element.removeChild(return_date_element)
+        // Initialize return date element to current state of "roundtrip checkbox"
+        checkbox = document.getElementById('roundtrip_checkbox')
+        updateRoundtripState(checkbox)
 
      </script>
 
