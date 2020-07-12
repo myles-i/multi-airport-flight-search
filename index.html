@@ -187,10 +187,6 @@
         checkbox = document.getElementById('roundtrip_checkbox')
         updateRoundtripState(checkbox)
 
-     </script>
-
-    <!-- OpenSearchTabs scripts -->
-    <script>
         function getAirports(tag) {
             elem = document.getElementById(tag)
             str = elem.value
@@ -204,24 +200,49 @@
 
             destinations = getAirports("destination_input")
             origins = getAirports("origin_input")
-            departure_date = str = document.getElementById("departure_date_input").value
+            departure_date =  document.getElementById("departure_date_input").value
+            is_roundrip_enabled = document.getElementById('roundtrip_checkbox').checked
+            if (is_roundrip_enabled)
+            {
+                return_date = document.getElementById("return_date_input").value
+            }
             for (dest_idx = 0; dest_idx < destinations.length; dest_idx++) {
                 destination = destinations[dest_idx]
                 for (origin_idx = 0; origin_idx < origins.length; origin_idx++) {
                     origin = origins[origin_idx]
                     // Open southwest search tab for each combination of origin/destination
-                    // roundtrip: https://www.southwest.com/air/booking/select.html?adultPassengersCount=1&departureDate=2020-07-12&departureTimeOfDay=ALL_DAY&destinationAirportCode=SNA&fareType=USD&int=HOMEQBOMAIR&originationAirportCode=SJC&passengerType=ADULT&reset=true&returnDate=2020-07-31&returnTimeOfDay=ALL_DAY&seniorPassengersCount=0&tripType=roundtrip
-                    url_str = "https://www.southwest.com/air/booking/select.html?int=HOMEQBOMAIR&adultPassengersCount=1&departureDate=" + departure_date +
-                        "&destinationAirportCode=" + destination +
-                        "&fareType=USD&originationAirportCode=" + origin +
-                        "&passengerType=ADULT&returnDate=&seniorPassengersCount=0&tripType=oneway&departureTimeOfDay=ALL_DAY&reset=true&returnTimeOfDay=ALL_DAY"
+                    if (is_roundrip_enabled)
+                    {
+                        url_str = "https://www.southwest.com/air/booking/select.html?adultPassengersCount=1&departureDate=" + departure_date +
+                            "&departureTimeOfDay=ALL_DAY&destinationAirportCode=" + destination +
+                            "&fareType=USD&int=HOMEQBOMAIR&originationAirportCode=" + origin +
+                            "&passengerType=ADULT&reset=true&returnDate=" + return_date +
+                            "&returnTimeOfDay=ALL_DAY&seniorPassengersCount=0&tripType=roundtrip"
+                    }
+                    else
+                    {
+                        url_str = "https://www.southwest.com/air/booking/select.html?int=HOMEQBOMAIR&adultPassengersCount=1&departureDate=" + departure_date +
+                            "&destinationAirportCode=" + destination +
+                            "&fareType=USD&originationAirportCode=" + origin +
+                            "&passengerType=ADULT&returnDate=&seniorPassengersCount=0&tripType=oneway&departureTimeOfDay=ALL_DAY&reset=true&returnTimeOfDay=ALL_DAY"
+                    }
                     window.open(url_str, "_blank");
                 }
             }
             // open a single google flights page with all combos
             // roundtrip: https://www.google.com/flights?hl=en#flt=/m/0f04v,SFO,OAK,SJC.LGB,SNA.2020-07-12*LGB,SNA./m/0f04v,SFO,OAK,SJC.2020-07-16;c:USD;e:1;sd:1;t:f
-            window.open("https://www.google.com/flights#flt=/m/0f04v," + origins.join(',') + "." + destinations.join(',') + "." + departure_date +
-                ";c:USD;e:1;sd:1;t:f;tt:o", "_blank");
+            if (is_roundrip_enabled)
+            {
+                // url_str = "https://www.google.com/flights?hl=en#flt=/m/0f04v," + SFO,OAK,SJC.LGB,SNA.2020-07-12*LGB,SNA./m/0f04v,SFO,OAK,SJC.2020-07-16;c:USD;e:1;sd:1;t:f
+                url_str = "https://www.google.com/flights#flt=/m/0f04v," + origins.join(',') + "." + destinations.join(',') + "." + departure_date +
+                "*" + destinations.join(',') + "./m/0f04v," + origins.join(',') + "." + return_date + ";c:USD;e:1;sd:1;t:f"
+            }
+            else
+            {
+                url_str = "https://www.google.com/flights#flt=/m/0f04v," + origins.join(',') + "." + destinations.join(',') + "." + departure_date +
+                    ";c:USD;e:1;sd:1;t:f;tt:o"
+            }
+            window.open(url_str, "_blank");
         }
 
     </script>
