@@ -43,7 +43,7 @@
 <body>
     <div class="view"
         style="background-image: url('https://www.ishn.com/ext/resources/900x550/airplane-plane-flight-900.jpg?1583412590'); height: 100%; background-repeat: no-repeat; background-size: cover; background-position: center center;">
-        <div class="container">
+        <div class="container h-100">
             <!-- add some spacing -->
             <div class="row mb-5">
             </div>
@@ -79,14 +79,32 @@
                     </form>
                 </div>
             </div>
-            <div class="row mt-5">
-                <div class="offset-md-4 col-md-4 text-center">
+            <div id="dates_row" class="row mt-2 align-items-center h-100">
+                <div class="col-md-2 ">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" id="roundtrip_checkbox" type="checkbox" horizontal-align="middle" onclick="toggleRoundtrip(this)">
+                            Roundtrip
+                        </input>
+                    </div class="form-check">
+                </div>
+                <div class="col-md-4 text-center">
                     <form>
                         <label class="text-center font-weight-bold" for="departure_date_input">
                             Departure Date
                         </label>
                         <input class="form-control" id="departure_date_input" name="departure_date_input"
                             placeholder="yyyy-mm-dd" type="text">
+                        </input>
+                    </form>
+                </div>
+                <div class="col-md-4 text-center" id="return_date_input_column">
+                    <form >
+                        <label class="text-center font-weight-bold" for="return_date_input">
+                            Return Date
+                        </label>
+                        <input class="form-control" id="return_date_input" name="return_date_input"
+                            placeholder="yyyy-mm-dd" type="text">
+                        </input>
                     </form>
                 </div>
             </div>
@@ -146,12 +164,33 @@
         })
     </script>
 
+    <!-- rountrip checkbox scripts -->
+    <script >
+        return_date_element = document.getElementById("return_date_input_column");
+        function toggleRoundtrip(cb)
+        {
+            var dates_row_element = document.getElementById("dates_row");
+            if (cb.checked)
+            {
+                dates_row_element.appendChild(return_date_element)
+            }
+            else
+            {
+                dates_row_element.removeChild(return_date_element)
+            }
+        }
+
+        var dates_row_element = document.getElementById("dates_row");
+        dates_row_element.removeChild(return_date_element)
+
+     </script>
+
+    <!-- OpenSearchTabs scripts -->
     <script>
         function getAirports(tag) {
             elem = document.getElementById(tag)
             str = elem.value
-            if (str.length == 0)
-            {
+            if (str.length == 0) {
                 str = elem.getAttribute("placeholder")
             }
             return str.replace(/\s/g, '').toUpperCase().split(',')
@@ -167,6 +206,7 @@
                 for (origin_idx = 0; origin_idx < origins.length; origin_idx++) {
                     origin = origins[origin_idx]
                     // Open southwest search tab for each combination of origin/destination
+                    // roundtrip: https://www.southwest.com/air/booking/select.html?adultPassengersCount=1&departureDate=2020-07-12&departureTimeOfDay=ALL_DAY&destinationAirportCode=SNA&fareType=USD&int=HOMEQBOMAIR&originationAirportCode=SJC&passengerType=ADULT&reset=true&returnDate=2020-07-31&returnTimeOfDay=ALL_DAY&seniorPassengersCount=0&tripType=roundtrip
                     url_str = "https://www.southwest.com/air/booking/select.html?int=HOMEQBOMAIR&adultPassengersCount=1&departureDate=" + departure_date +
                         "&destinationAirportCode=" + destination +
                         "&fareType=USD&originationAirportCode=" + origin +
@@ -175,7 +215,7 @@
                 }
             }
             // open a single google flights page with all combos
-            https://www.google.com/flights#flt=/m/0f04v,SFO.SNA.2020-07-24;c:USD;e:1;sd:1;t:f;tt:o
+            // roundtrip: https://www.google.com/flights?hl=en#flt=/m/0f04v,SFO,OAK,SJC.LGB,SNA.2020-07-12*LGB,SNA./m/0f04v,SFO,OAK,SJC.2020-07-16;c:USD;e:1;sd:1;t:f
             window.open("https://www.google.com/flights#flt=/m/0f04v," + origins.join(',') + "." + destinations.join(',') + "." + departure_date +
                 ";c:USD;e:1;sd:1;t:f;tt:o", "_blank");
         }
