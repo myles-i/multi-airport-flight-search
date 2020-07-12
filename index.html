@@ -148,24 +148,25 @@
 
     <!-- datepicker scripts -->
     <script>
-        $(document).ready(function () {
+        function attachDatePickerFunctionality(tag_name)
+        {
+            $(document).ready(function () {
 
-            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-            var options = {
-                format: 'yyyy-mm-dd',
-                container: container,
-                todayHighlight: true,
-                autoclose: true,
-                orientation: "bottom",
-            }
-            var departure_date = $('input[name="departure_date_input"]');
-            departure_date.datepicker(options)
-            departure_date.datepicker('update', new Date());
-        })
-    </script>
+                var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+                var options = {
+                    format: 'yyyy-mm-dd',
+                    container: container,
+                    todayHighlight: true,
+                    autoclose: true,
+                    orientation: "bottom",
+                }
+                var departure_date = $('input[name="' + tag_name + '"]');
+                departure_date.datepicker(options)
+                departure_date.datepicker('update', new Date());
+            })
+        }
+        attachDatePickerFunctionality("departure_date_input")
 
-    <!-- rountrip checkbox scripts -->
-    <script >
         return_date_element = document.getElementById("return_date_input_column");
         function toggleRoundtrip(cb)
         {
@@ -173,10 +174,12 @@
             if (cb.checked)
             {
                 dates_row_element.appendChild(return_date_element)
+                attachDatePickerFunctionality("return_date_input")
             }
             else
             {
                 dates_row_element.removeChild(return_date_element)
+
             }
         }
 
